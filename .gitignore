@@ -1,0 +1,38 @@
+/venv
+/newvenv
+.idea
+.idea/
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+### Django ###
+*.log
+*.pot
+*.pyc
+DataBasescredentials
+dockercommands.md
+resetdb.py
+resetdb.exe
+local_settings.py
+.env
+db.sqlite3
+
+__pycache__/
+*/*/*/*/__pycache__/
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
+prod.env
+django_debug.log
+media/
+deploy.sh
