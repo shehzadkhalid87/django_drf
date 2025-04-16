@@ -50,18 +50,18 @@ class EmailService:
         """
         Example of an additional method for sending a welcome email.
         """
-        subject = "Welcome to ANA"
+        subject = "Title message"
         # Create HTML content inline
         html_content = """
                     <!DOCTYPE html>
                     <html>
                     <head>
                         <meta charset="UTF-8">
-                        <title>Welcome Abroad</title>
+                        <title>Welcome Message</title>
                     </head>
                     <body>
                         <h2>Welcome to Our Platform!</h2>                        
-                        <p>Thankyou for choosing ANA, Please use the link to sign in the app.</p>
+                        <p>Thankyou for choosing platform_name, Please use the link to sign in the app.</p>
                         <br />
                         <p>If you did not sign up for this account, please ignore this email.</p>
                         <br>
@@ -189,48 +189,6 @@ class EmailService:
 
         # Create the email object
         email = EmailMultiAlternatives(subject, text_content, from_email=config("FROM_EMAIL"), to=recipient_list)
-        email.attach_alternative(html_content, "text/html")
-
-        # Send email in a separate thread to avoid blocking the request
-        threading.Thread(target=email.send).start()
-
-    @staticmethod
-    def send_candidate_assessment_assignment_email(user: UserEntity, frontend_link: str):
-        """
-        Sends a Candidate email to complete the account process.
-        :param user: UserEntity.
-        :param frontend_link: The URL for email verification.
-        """
-
-        subject = "New Assessment"
-        # Create HTML content inline
-        html_content = f"""
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <meta charset="UTF-8">
-                        <title>New Assessment</title>
-                    </head>
-                    <body>
-                        <h2>Dear {user.first_name} {user.last_name}, your just received a new assessment.</h2>
-                        <br />
-                        <h2>A new assessment is assigned, please use the link to view the assessment</h2>
-                        <a href="{frontend_link}" target="_blank">Complete Assessment</a>
-                        <p>Please use this link to complete your assessment.</p>
-                        
-                        <br />
-                        <p>If you did not sign up for this account, please ignore this email.</p>
-                        <br>
-                        <p>Best regards,</p>
-                        <p>Your Company Team</p>
-                    </body>
-                    </html>
-                    """
-        # Convert HTML to plain text for fallback
-        text_content = strip_tags(html_content)
-
-        # Create the email object
-        email = EmailMultiAlternatives(subject, text_content, from_email=config("FROM_EMAIL"), to=[user.email])
         email.attach_alternative(html_content, "text/html")
 
         # Send email in a separate thread to avoid blocking the request

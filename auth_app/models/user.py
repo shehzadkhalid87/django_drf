@@ -2,7 +2,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Permission, Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from core.enums.enums import ROLES, ACCOUNT_STATUS
 from core.models.base import BaseModel
 from core.models.timestamp import TimeStampModel
@@ -31,7 +30,7 @@ class UserEntityManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, **extra_fields):how 
+    def create_superuser(self, **extra_fields):
         """
         Create and return a superuser.
         :params: user fields
@@ -58,40 +57,15 @@ class UserEntity(AbstractBaseUser, PermissionsMixin, BaseModel, TimeStampModel):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     role = models.CharField(max_length=128, choices=ROLES.choices())
-    trade_name = models.CharField(max_length=256, null=True)
-    corporate_name = models.CharField(max_length=256, null=True)
-    numbers_employees = models.IntegerField(null=True)
-    city = models.CharField(max_length=128, null=True)
-    cnpj = models.CharField(max_length=128, null=True)
-    cpf = models.CharField(max_length=128, null=True)
-    profession = models.CharField(max_length=128, null=True)
     phone_number = models.CharField(max_length=15, null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     google_email_verification = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
-    is_agreement_accepted = models.BooleanField(default=False)
-    status = models.CharField(max_length=128, choices=ACCOUNT_STATUS.choices(),
-                              default=ACCOUNT_STATUS.COMPLETE.value[0])
-    company = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=128, choices=ACCOUNT_STATUS.choices(),default=ACCOUNT_STATUS.COMPLETE.value[0])
     email_token_used = models.BooleanField(default=False)
     forgot_password_token_used = models.BooleanField(default=True)
     is_de_activated = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-
-    groups = models.ManyToManyField(
-        Group,
-        related_name="userentity_groups",
-        blank=True,
-        help_text=_("The groups this user belongs to."),
-        verbose_name=_("groups"),
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="userentity_permissions",
-        blank=True,
-        help_text=_("Specific permissions for this user."),
-        verbose_name=_("user permissions"),
-    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['role']

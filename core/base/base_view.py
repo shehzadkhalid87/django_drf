@@ -2,7 +2,6 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
-
 from core.common.erro_message_type import APPErrorTypes
 from core.exceptions.base import ApiError
 
