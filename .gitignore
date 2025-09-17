@@ -1,6 +1,8 @@
 /venv
 /newvenv
 .idea
+.venv
+.virtualenve
 .idea/
 ### OSX ###
 .DS_Store
